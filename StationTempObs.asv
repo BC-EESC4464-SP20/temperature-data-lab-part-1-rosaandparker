@@ -1,5 +1,5 @@
 %% Add your names in a comment here at the beginning of the code!
-%Rosa & Parker
+
 % Instructions: Follow through this code step by step, while also referring
 % to the overall instructions and questions from the lab assignment sheet.
 % Everywhere you see "% -->" is a place where you will need to write in
@@ -19,7 +19,7 @@ stationdata = readtable(filename);
 %You should also be able to see the latitude and longitude of the original
 %station in the csv file. Add these below:
 
-stationlat =  - 12.4; %uncomment to run this line of code after adding the station latitude
+stationlat =  12.4; %uncomment to run this line of code after adding the station latitude
 stationlon = 130.87; %uncomment to run this line of code after adding the station longitude
 
 %% 2. Plot the data from a single month
@@ -28,17 +28,17 @@ stationlon = 130.87; %uncomment to run this line of code after adding the statio
 % point markers rather than a line connecting each data point.
 
 % --> 
-plot(stationdata.Year,stationdata.Jan,".")
+plot(
 
 % Calculate the monthly mean, minimum, maximum, and standard deviation
 % note: some of these values will come out as NaN is you use the regular
 % mean and std functions --> can you tell why? use the functions nanmean
 % and nanstd to avoid this issue.
 
-JanMean = nanmean(stationdata.Jan)
-JanStd = nanstd(stationdata.Jan)
-JanMin = min(stationdata.Jan)
-JanMax = max(stationdata.Jan)
+% --> monthMean = 
+% --> monthStd = 
+% --> monthMin = 
+% --> monthMax =
 
 %% 3. Calculate the annual climatology
 % Extract the monthly temperature data from the table and store it in an
@@ -48,10 +48,10 @@ tempData = table2array(stationdata(:,4:15));
 %Calculate the mean, standard deviation, minimum, and maximum temperature
 %for every month. This will be similar to what you did above for a single
 %month, but now applied over all months simultaneously.
-%tempMean =
-%tempStd = 
-%tempMin =
-%tempMax = 
+% --> tempMean =
+% --> tempStd =
+% --> tempMin =
+% --> tempMax =
 
 %Use the plotting function "errorbar" to plot the monthly climatology with
 %error bars representing the standard deviation. Add a title and axis
