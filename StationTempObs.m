@@ -28,6 +28,7 @@ stationlon = 130.87; %uncomment to run this line of code after adding the statio
 % point markers rather than a line connecting each data point.
 
 % --> 
+figure
 plot(stationdata.Year,stationdata.Jan,".")
 
 % Calculate the monthly mean, minimum, maximum, and standard deviation
@@ -48,33 +49,44 @@ tempData = table2array(stationdata(:,4:15));
 %Calculate the mean, standard deviation, minimum, and maximum temperature
 %for every month. This will be similar to what you did above for a single
 %month, but now applied over all months simultaneously.
-%tempMean =
-%tempStd = 
-%tempMin =
-%tempMax = 
+for i = 1:12
+tempMean(1,i) = nanmean(tempData(:,i));
+tempStd(1,i)  = nanstd(tempData(:,i));
+tempMin(1,i)  = nanmin(tempData(:,i)); 
+tempMax(1,i)  = nanmax(tempData(:,i));
+end
 
 %Use the plotting function "errorbar" to plot the monthly climatology with
 %error bars representing the standard deviation. Add a title and axis
 %labels. Use the commands "axis", "xlim", and/or "ylim" if you want to
 %change from the automatic x or y axis limits.
-    figure(1); clf
-% --> (note that this may take multiple lines of code)
+% --> (note t/hat this may take multiple lines of code)
+
+figure
+errorbar([1:12]',tempMean',tempStd')
 
 %% 4. Fill missing values with the monthly climatological value
 % Find all values of NaN in tempData and replace them with the
 % corresponding climatological mean value calculated above.
 
 % We can do this by looping over each month in the year:
-for i = 1:12
-    %use the find and isnan functions to find the index location in the
+for i = 1:length(tempData)
+    for j = 1:12
+        if isnan(tempData(i,j)) == 1
+            tempData(i,j) = tempMean(1,j);
+               %use the find and isnan functions to find the index location in the
     %array of data points with NaN values
-    indnan = find(isnan(tempData(:,i)) == 1); %check to make sure you understand what is happening in this line
+    %indnan = find(isnan(tempData(:,i)) == 1); %check to make sure you understand what is happening in this line
     %now fill the corresponding values with the climatological mean
     % --> 
+    end
+    end
 end
 
 %% 5a. Calculate the annual mean temperature for each year
-% --> 
+for i = 1:length(tempData)
+    annTempMean(i,1) = mean(tempData(i,1:12));
+end
 
 %% 5b-c. Calculate the temperature anomaly for each year, compared to the 1981-2000 mean
 % The anomaly is the difference from the mean over some baseline period. In
@@ -84,19 +96,36 @@ end
 
 %Calculate the annual mean temperature over the period from 1981-2000
   %Use the find function to find rows contain data where stationdata.Year is between 1981 and 2000
-% -->
+    n = 1;
+    stationdataArray = table2array(stationdata);
+    for i = 1:length(tempData)
+        for j = 1981:2000
+        if stationdataArray(i,3) == j  
+        meanBase(n,1) = mean(tempData(i,1:12));
+        n = n +1;
+        end
+        end
+    end
+    
   %Now calculate the mean over the full time period from 1981-2000
 % -->
+
+meanBaseNum = mean(meanBase);
 
 %Calculate the annual mean temperature anomaly as the annual mean
 %temperature for each year minus the baseline mean temperature
 % -->
 
+annMeanTempAnom = annTempMean - meanBaseNum;
+
 %% 6a. Plot the annual temperature anomaly over the full observational record
-figure(2); clf
 %Make a scatter plot with year on the x axis and the annual mean
 %temperature anomaly on the y axis
 % -->  
+
+figure
+plot(stationdataArray(:,3),annMeanTempAnom,'.')
+hold on
 
 %% 6b. Smooth the data by taking a 5-year running mean of the data to plot
 %This will even out some of the variability you observe in the scatter
@@ -104,9 +133,10 @@ figure(2); clf
 %most straightforward - use the function movmean for this. For information
 %about how to use this function, type "help movmean" in the command window.
 % --> 
-
+annTempMovMean = movmean(annMeanTempAnom,5);
 %Now add a line with this smoothed data to the scatter plot
 % --> 
+plot(stationdataArray(:,3),annTempMovMean)
 
 %% 7. Add and plot linear trends for whole time period, and for 1960 to today
 %Here we will use the function polyfit to calculate a linear fit to the data
