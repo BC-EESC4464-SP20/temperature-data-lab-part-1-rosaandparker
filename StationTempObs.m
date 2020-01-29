@@ -68,13 +68,10 @@ end
 
 figure
 errorbar([1:12]',tempMean',tempStd')
-<<<<<<< HEAD
 title('Annual Climatology')
 xlabel('Month')
 ylabel('Temp in Celsius')
 
-=======
->>>>>>> a3d937c786a797f7fd137aba6d0cbaf75e57210d
 
 %% 4. Fill missing values with the monthly climatological value
 % Find all values of NaN in tempData and replace them with the
@@ -137,12 +134,9 @@ annMeanTempAnom = annTempMean - meanBaseNum;
 figure
 plot(stationdataArray(:,3),annMeanTempAnom,'.')
 hold on
-<<<<<<< HEAD
 title('Annual Temperature Anomaly')
 xlabel('Year')
 ylabel('Temperature Anomaly in Celsius')
-=======
->>>>>>> a3d937c786a797f7fd137aba6d0cbaf75e57210d
 
 %% 6b. Smooth the data by taking a 5-year running mean of the data to plot
 %This will even out some of the variability you observe in the scatter
@@ -154,12 +148,9 @@ annTempMovMean = movmean(annMeanTempAnom,5);
 %Now add a line with this smoothed data to the scatter plot
 % --> 
 plot(stationdataArray(:,3),annTempMovMean)
-<<<<<<< HEAD
 title('Annual Temperature Anomaly')
 xlabel('Year')
 ylabel('Temperature Anomaly in Celsius')
-=======
->>>>>>> a3d937c786a797f7fd137aba6d0cbaf75e57210d
 
 %% 7. Add and plot linear trends for whole time period, and for 1960 to today
 %Here we will use the function polyfit to calculate a linear fit to the data
