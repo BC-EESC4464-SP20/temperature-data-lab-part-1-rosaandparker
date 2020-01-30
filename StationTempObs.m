@@ -166,6 +166,7 @@ ylabel('Temperature Anomaly in Celsius')
     % years
 % --> 
 
+
 %Add lines for each of these linear trends on the annual temperature
 %anomaly plot (you can do this either directly using the slope and intercept
 %values calculated with polyfit, or using the polyval function).
