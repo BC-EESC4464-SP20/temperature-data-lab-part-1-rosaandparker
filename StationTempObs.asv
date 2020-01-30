@@ -165,7 +165,4 @@ plot(stationdataArray(79:end,3),f,'b')
 % Add a legend, axis labels, and a title to your temperature anomaly plot
 % --> 
 
-legend('Mean Annual Temp','Mean Annual Temp (5 yr moving mean','Best Fit (POR)','Best Fit (1960-2020)')
-title('Staiion 94120 Temperature Anomaly (C) Using 1981-2000 Baseline')
-xlabel('Year')
-ylabel('Temperature Anomaly (C)')
+legend()
