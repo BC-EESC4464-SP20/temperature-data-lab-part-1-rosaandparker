@@ -6,6 +6,7 @@
 % your own line of code to accomplish the next task.
 
 %% 1a. Read in the file for your station as a data table
+addpath(genpath('temperature-data-lab-part-1-rosaandparker'))
 filename = '941200.csv'; %change this to select a different station
 stationdata = readtable(filename);
 

@@ -1,4 +1,5 @@
-%% Add your names in a comment here at the beginning of the code!
+
+ %% Add your names in a comment here at the beginning of the code!
 %Rosa & Parker
 % Instructions: Follow through this code step by step, while also referring
 % to the overall instructions and questions from the lab assignment sheet.
@@ -6,6 +7,7 @@
 % your own line of code to accomplish the next task.
 
 %% 1a. Read in the file for your station as a data table
+addpath(genpath('temperature-data-lab-part-1-rosaandparker'))
 filename = '941200.csv'; %change this to select a different station
 stationdata = readtable(filename);
 
@@ -30,16 +32,19 @@ stationlon = 130.87; %uncomment to run this line of code after adding the statio
 % --> 
 figure
 plot(stationdata.Year,stationdata.Jan,".")
+title('January Temperature')
+xlabel('Year')
+ylabel('Temperature in Celsius')
 
 % Calculate the monthly mean, minimum, maximum, and standard deviation
 % note: some of these values will come out as NaN is you use the regular
 % mean and std functions --> can you tell why? use the functions nanmean
 % and nanstd to avoid this issue.
 
-JanMean = nanmean(stationdata.Jan)
-JanStd = nanstd(stationdata.Jan)
-JanMin = min(stationdata.Jan)
-JanMax = max(stationdata.Jan)
+JanMean = nanmean(stationdata.Jan);
+JanStd = nanstd(stationdata.Jan);
+JanMin = min(stationdata.Jan);
+JanMax = max(stationdata.Jan);
 
 %% 3. Calculate the annual climatology
 % Extract the monthly temperature data from the table and store it in an
@@ -64,6 +69,10 @@ end
 
 figure
 errorbar([1:12]',tempMean',tempStd')
+title('Annual Climatology')
+xlabel('Month')
+ylabel('Temp in Celsius')
+
 
 %% 4. Fill missing values with the monthly climatological value
 % Find all values of NaN in tempData and replace them with the
@@ -126,6 +135,9 @@ annMeanTempAnom = annTempMean - meanBaseNum;
 figure
 plot(stationdataArray(:,3),annMeanTempAnom,'.')
 hold on
+title('Annual Temperature Anomaly')
+xlabel('Year')
+ylabel('Temperature Anomaly in Celsius')
 
 %% 6b. Smooth the data by taking a 5-year running mean of the data to plot
 %This will even out some of the variability you observe in the scatter
@@ -137,6 +149,10 @@ annTempMovMean = movmean(annMeanTempAnom,5);
 %Now add a line with this smoothed data to the scatter plot
 % --> 
 plot(stationdataArray(:,3),annTempMovMean,'k')
+plot(stationdataArray(:,3),annTempMovMean)
+title('Annual Temperature Anomaly')
+xlabel('Year')
+ylabel('Temperature Anomaly in Celsius')
 
 %% 7. Add and plot linear trends for whole time period, and for 1960 to today
 %Here we will use the function polyfit to calculate a linear fit to the data
@@ -144,9 +160,12 @@ plot(stationdataArray(:,3),annTempMovMean,'k')
 %read the documentation at https://www.mathworks.com/help/matlab/data_analysis/linear-regression.html
     %use polyfit to calculate the slope and intercept of a best fit line
     %over the entire observational period
+
 p = polyfit(stationdataArray(:,3),annMeanTempAnom,1);
 f = polyval(p,stationdataArray(:,3));
-plot(stationdataArray(:,3),f,'r')
+plot(stationdataArray(:,3),f,'r');
+
+
     %also calculate the slope and intercept of a best fit line just from
     %1960 to the end of the observational period
     % Hint: start by finding the index for where 1960 is in the list of
@@ -155,6 +174,7 @@ plot(stationdataArray(:,3),f,'r')
 p = polyfit(stationdataArray(79:end,3),annMeanTempAnom(79:end),1);
 f = polyval(p,stationdataArray(79:end,3));
 plot(stationdataArray(79:end,3),f,'b')
+
 
 %Add lines for each of these linear trends on the annual temperature
 %anomaly plot (you can do this either directly using the slope and intercept
